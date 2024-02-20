@@ -26,6 +26,6 @@ e previsões para os próximos dias.
 ## Como rodar a aplicação:
 - Clone o repositório
 - Abra o terminal na pasta do projeto
-- Rode o comando `npm install` para instalar as dependências
-- Rode o comando `npm start` para iniciar o servidor
-- Acesse `http://localhost:3001` para acessar a aplicação
+- Rode o comando `bun install` para instalar as dependências
+- Rode o comando `bun index.ts` para iniciar o servidor
+- Acesse `http://localhost:3000` para acessar a aplicação
