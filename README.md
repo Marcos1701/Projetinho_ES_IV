@@ -7,9 +7,7 @@ com base na localização do usuário. Pode mostrar a temperatura atual, condiç
 e previsões para os próximos dias.
 ```
 
-## Essa Branch é a backend da aplicação, ela é responsável por fornecer os dados para o frontend.
-
-## Tecnologias utilizadas:
+## Tecnologias utilizadas - Backend:
 - Bun
 - Typescript
 - Express
