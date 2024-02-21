@@ -30,7 +30,7 @@ e previsões para os próximos dias.
 
 
 **OBS:**
-- Essa aplicação foi desenvolvida com o intuito de estudo, e não deve ser utilizada em produção.
+- O Backend dessa aplicação foi desenvolvida com o intuito de estudo, e não deve ser utilizada em produção.
 - Este é o meu primeiro projeto utilizando Bun, então pode haver erros. :D
 
 
