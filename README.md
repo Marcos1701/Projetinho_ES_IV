@@ -1,3 +1,7 @@
+# Integrantes
+- ## Marcos Eduardo
+- ## Gabriel Morais
+
 # Weather APP
 ## Resumo da aplicação:
 
