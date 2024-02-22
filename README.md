@@ -1,6 +1,6 @@
 # Integrantes
-- ## Marcos Eduardo
-- ## Gabriel Morais
+- ## 🤖 Marcos Eduardo 
+- ## :octocat: Gabriel Morais
 
 # Weather APP
 ## Resumo da aplicação:
