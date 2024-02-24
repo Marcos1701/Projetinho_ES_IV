@@ -1,0 +1,434 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Previsão do Tempo API",
+        "description": "API para obter informações sobre previsão do tempo",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        "/api/forecast": {
+            "get": {
+                "summary": "Retorna a previsão do tempo para os próximos dias.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "required": true,
+                        "description": "Latitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-23.682"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "required": true,
+                        "description": "Longitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-46.875"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna a previsão do tempo.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Forecast"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "date": "2024-02-25",
+                                        "weekday": "Sexta-feira",
+                                        "max": 30,
+                                        "min": 20,
+                                        "cloudiness": 20,
+                                        "rain": 0,
+                                        "rain_probability": 0,
+                                        "wind_speedy": "10 km/h",
+                                        "description": "Ensolarado",
+                                        "condition": "clear_day"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/current": {
+            "get": {
+                "summary": "Retorna a previsão do tempo atual.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "required": true,
+                        "description": "Latitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-23.682"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "required": true,
+                        "description": "Longitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-46.875"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna a previsão do tempo atual.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrentWeather"
+                                },
+                                "example": {
+                                    "temp": 25,
+                                    "date": "2024-02-25",
+                                    "time": "10:00",
+                                    "condition_code": "clear_day",
+                                    "description": "Ensolarado",
+                                    "currently": "dia",
+                                    "cid": "BRXX0234",
+                                    "city": "São Paulo",
+                                    "img_id": "01d",
+                                    "humidity": 60,
+                                    "cloudiness": 20,
+                                    "rain": 0,
+                                    "wind_speedy": "10 km/h",
+                                    "wind_direction": 90,
+                                    "wind_cardinal": "E",
+                                    "sunrise": "06:00",
+                                    "sunset": "18:00",
+                                    "moon_phase": "crescente",
+                                    "condition_slug": "clear_day",
+                                    "city_name": "São Paulo",
+                                    "timezone": "America/Sao_Paulo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sun": {
+            "get": {
+                "summary": "Retorna os horários de nascer e pôr do sol.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "required": true,
+                        "description": "Latitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-23.682"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "required": true,
+                        "description": "Longitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-46.875"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os horários do nascer e pôr do sol.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SunInfo"
+                                },
+                                "example": {
+                                    "sunrise": "06:00",
+                                    "sunset": "18:00"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/moon": {
+            "get": {
+                "summary": "Retorna a fase atual da lua.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "required": true,
+                        "description": "Latitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-23.682"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "required": true,
+                        "description": "Longitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-46.875"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna a fase atual da lua.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MoonPhase"
+                                },
+                                "example": {
+                                    "moon_phase": "crescente"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/city": {
+            "get": {
+                "summary": "Retorna informações sobre a cidade.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "required": true,
+                        "description": "Latitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-23.682"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "required": true,
+                        "description": "Longitude da localização.",
+                        "schema": {
+                            "type": "string",
+                            "example": "-46.875"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna informações sobre a cidade.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CityInfo"
+                                },
+                                "example": {
+                                    "city": "São Paulo",
+                                    "timezone": "America/Sao_Paulo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Forecast": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "description": "Data da previsão."
+                    },
+                    "weekday": {
+                        "type": "string",
+                        "description": "Dia da semana."
+                    },
+                    "max": {
+                        "type": "number",
+                        "description": "Temperatura máxima."
+                    },
+                    "min": {
+                        "type": "number",
+                        "description": "Temperatura mínima."
+                    },
+                    "cloudiness": {
+                        "type": "number",
+                        "description": "Porcentagem de nuvens."
+                    },
+                    "rain": {
+                        "type": "number",
+                        "description": "Quantidade de chuva."
+                    },
+                    "rain_probability": {
+                        "type": "number",
+                        "description": "Probabilidade de chuva."
+                    },
+                    "wind_speedy": {
+                        "type": "string",
+                        "description": "Velocidade do vento."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição do clima."
+                    },
+                    "condition": {
+                        "type": "string",
+                        "description": "Condição do tempo."
+                    }
+                }
+            },
+            "CurrentWeather": {
+                "type": "object",
+                "properties": {
+                    "temp": {
+                        "type": "number",
+                        "description": "Temperatura atual."
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Data atual."
+                    },
+                    "time": {
+                        "type": "string",
+                        "description": "Hora atual."
+                    },
+                    "condition_code": {
+                        "type": "string",
+                        "description": "Código da condição do tempo."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição do clima atual."
+                    },
+                    "currently": {
+                        "type": "string",
+                        "description": "Condição climática atual."
+                    },
+                    "cid": {
+                        "type": "string",
+                        "description": "Identificação da cidade."
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "Nome da cidade."
+                    },
+                    "img_id": {
+                        "type": "string",
+                        "description": "ID da imagem do clima."
+                    },
+                    "humidity": {
+                        "type": "number",
+                        "description": "Umidade."
+                    },
+                    "cloudiness": {
+                        "type": "number",
+                        "description": "Porcentagem de nuvens."
+                    },
+                    "rain": {
+                        "type": "number",
+                        "description": "Quantidade de chuva."
+                    },
+                    "wind_speedy": {
+                        "type": "string",
+                        "description": "Velocidade do vento."
+                    },
+                    "wind_direction": {
+                        "type": "number",
+                        "description": "Direção do vento."
+                    },
+                    "wind_cardinal": {
+                        "type": "string",
+                        "description": "Direção do vento em cardinal."
+                    },
+                    "sunrise": {
+                        "type": "string",
+                        "description": "Horário do nascer do sol."
+                    },
+                    "sunset": {
+                        "type": "string",
+                        "description": "Horário do pôr do sol."
+                    },
+                    "moon_phase": {
+                        "type": "string",
+                        "description": "Fase da lua."
+                    },
+                    "condition_slug": {
+                        "type": "string",
+                        "description": "Slug da condição do tempo."
+                    },
+                    "city_name": {
+                        "type": "string",
+                        "description": "Nome da cidade."
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "Fuso horário da cidade."
+                    }
+                }
+            },
+            "SunInfo": {
+                "type": "object",
+                "properties": {
+                    "sunrise": {
+                        "type": "string",
+                        "description": "Horário do nascer do sol."
+                    },
+                    "sunset": {
+                        "type": "string",
+                        "description": "Horário do pôr do sol."
+                    }
+                }
+            },
+            "MoonPhase": {
+                "type": "object",
+                "properties": {
+                    "moon_phase": {
+                        "type": "string",
+                        "description": "Fase da lua."
+                    }
+                }
+            },
+            "CityInfo": {
+                "type": "object",
+                "properties": {
+                    "city": {
+                        "type": "string",
+                        "description": "Nome da cidade."
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "Fuso horário da cidade."
+                    }
+                }
+            }
+        }
+    }
+}
