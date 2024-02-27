@@ -1,38 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Button from "./components/Button";
+import Forms from "./components/Forms";
+import Table from "./components/Table";
 
 function App() {
-  const [count, setCount] = useState(0)
+  let [tableVisible, setTableVisibility] = useState(false);
+
 
   return (
     <>
-      <h1>Weather App</h1>
       <div>
-        <form>
-          <label for="lat">Latitude: </label>
-          <input type="text" id="lat" name="lat"/>
-        </form>
-        <form>
-          Longitude:
-          <input type="text"/>
-        </form>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <h1>Weather App</h1> 
+        <h2>O melhor app de previsão de tempo do IFPI!</h2>
       </div>
-
+      <br></br>
       <div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <Forms/>
+        <Button onClick={() => setTableVisibility(true)}>Confirmar</Button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {tableVisible && (
+        <div>
+          <Table></Table>
+        </div>)}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
