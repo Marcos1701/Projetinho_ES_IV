@@ -3,10 +3,12 @@ interface Props {
     onClick: () => void;
 }
 
+
 function Button({children, onClick} : Props) {
     return (
         <button type="submit" className="btn btn-primary" onClick={onClick}>{children}</button>
     );
 }
+
 
 export default Button;

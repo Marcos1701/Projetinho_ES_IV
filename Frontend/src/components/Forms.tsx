@@ -12,7 +12,6 @@ function Forms() {
                     <input type="geographic-coordinate" className="form-control" id="longitude"/>
                 </div>
             </form>
-            
         </>
     );
 }
