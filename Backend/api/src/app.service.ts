@@ -60,7 +60,10 @@ export class AppService {
   private apiKey: String = process.env.API_KEY;
 
   getHello(): string {
-    return 'Hello World!';
+    return `
+    Seja Bem vindo a API! ;) 
+    Para acessar a documentacao acesse /docs
+    `;
   }
 
   async getForecast(
@@ -229,7 +232,7 @@ export class AppService {
     if(!this.apiUrl || !this.apiKey){
       throw new Error("API_URL or API_KEY not found");
     }
-    
+
     const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
