@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 export interface ForecastApi {
   date: string;
@@ -50,12 +52,13 @@ export interface ResponseApi{
   from_cache: boolean;
 }
 
-// api => https://api.hgbrasil.com/weather?lat=-23.682&lon=-46.875&key=45e3765d
-// api key => 45e3765d
-
 
 @Injectable()
 export class AppService {
+
+  private apiUrl: String = process.env.API_URL;
+  private apiKey: String = process.env.API_KEY;
+
   getHello(): string {
     return 'Hello World!';
   }
@@ -64,7 +67,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<ForecastApi[]> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results.forecast){
       return response.results.forecast;
@@ -76,7 +82,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<ResultsApi> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results;
@@ -88,7 +97,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<{ sunrise: string; sunset: string }> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return {
@@ -103,7 +115,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.moon_phase;
@@ -115,7 +130,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.city_name;
@@ -130,7 +148,10 @@ export class AppService {
     city_name: string;
     timezone: string;
   }> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return {
@@ -145,7 +166,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.img_id;
@@ -157,7 +181,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.condition_slug;
@@ -169,7 +196,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.description;
@@ -181,7 +211,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<number> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.temp;
@@ -193,7 +226,11 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<number> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.humidity;
@@ -205,7 +242,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<string> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.wind_speedy;
@@ -217,7 +257,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<number> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.rain;
@@ -229,7 +272,10 @@ export class AppService {
     latitude: number,
     longitude: number
   ): Promise<number> {
-    const response: ResponseApi = (await axios.get<ResponseApi>(`https://api.hgbrasil.com/weather?lat=${latitude}&lon=${longitude}&key=45e3765d`)).data;
+    if(!this.apiUrl || !this.apiKey){
+      throw new Error("API_URL or API_KEY not found");
+    }
+    const response: ResponseApi = (await axios.get<ResponseApi>(`${this.apiUrl}?lat=${latitude}&lon=${longitude}&key=${this.apiKey}`)).data;
 
     if(response.results){
       return response.results.cloudiness;
